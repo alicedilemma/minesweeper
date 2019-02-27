@@ -1,39 +1,70 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
-// Define your `board` object here!
-var board = { 
-  cells: [] 
-};
+var difficultyButtons = document.querySelector('.difficulty');
+difficultyButtons.addEventListener('click', function (event) {
+  var buttonClicked = event.target;
+  checkDifficulty(buttonClicked.className);
+  startGame();
+});
 
-var numberOfRows = 3;
-var numberOfCols = 3;
+function checkDifficulty(difficulty) {
+  switch (difficulty) {
+    case 'easy':
+      console.log('easy');
+      rows = 4;
 
-for (var i = 0; i < numberOfRows; i++) {
-  for (var j = 0 ; j < numberOfCols; j++) {
-    board.cells.push( { row: i + 1, col: j + 1 });
+      break;
+    case 'medium':
+      console.log('medium');
+      rows = 5;
+
+      break;
+    case 'hard':
+      console.log('hard');
+      rows = 6;
+
+      break;
+
   }
 }
 
-board.cells.forEach(function(cell) {
-  cell.hidden = true;
-  cell.isMarked = false;
-  if (Math.random() >= 0.9) {
-    cell.isMine = true;
-  } else {
-    cell.isMine = false;
+var difficulty = 'medium';
+checkDifficulty(difficulty);
+
+function setupBoard() {
+  //empty cells array
+  var board = {
+    cells: []
+  };
+  //create cellls
+  for (var i = 0; i < rows; i++) {
+    for (var j = 0; j < rows; j++) {
+      board.cells.push({ row: i + 1, col: j + 1 });
+    }
   }
-});
+  board.cells.forEach(function (cell) {
+    cell.hidden = true;
+    cell.isMarked = false;
+    if (Math.random() >= 0.9) {
+      cell.isMine = true;
+    } else {
+      cell.isMine = false;
+    }
+  });
+  console.log(board.cells);
+  return board;
+}
 
-console.log(board.cells);
 
-function startGame () {
-  
+function startGame() {
+  board = setupBoard();
+
   document.addEventListener('click', checkForWin);
   document.addEventListener('contextmenu', checkForWin);
-  
+
   for (var i = 0; i < board.cells.length; i++) {
     surroundingMines =
-    board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
+      board.cells[i].surroundingMines = countSurroundingMines(board.cells[i]);
   }
   console.log(board.cells);
 
@@ -45,9 +76,9 @@ function startGame () {
 //
 // 1. Are all of the cells that are NOT mines visible?
 // 2. Are all of the mines marked?
-function checkForWin () {
-  
-  for (var i = 0; i < board.cells.length; i++){
+function checkForWin() {
+
+  for (var i = 0; i < board.cells.length; i++) {
     var cell = board.cells[i];
     if (cell.isMine && !cell.isMarked) {
       return;
@@ -71,12 +102,12 @@ function checkForWin () {
 //
 // It will return cell objects in an array. You should loop through 
 // them, counting the number of times `cell.isMine` is true.
-function countSurroundingMines (cell) {
+function countSurroundingMines(cell) {
   var surroundingCells = getSurroundingCells(cell.row, cell.col);
   var mineCount = 0;
-  surroundingCells.forEach(function(cell){
+  surroundingCells.forEach(function (cell) {
     if (cell.isMine === true) {
-      mineCount ++;
+      mineCount++;
     }
   });
   return mineCount;
