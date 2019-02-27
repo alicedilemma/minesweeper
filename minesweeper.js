@@ -68,6 +68,7 @@ function startGame() {
   }
   console.log(board.cells);
 
+  document.querySelector('.board').innerHTML = '';
   // Don't remove this function call: it makes the game work!
   lib.initBoard()
 }
