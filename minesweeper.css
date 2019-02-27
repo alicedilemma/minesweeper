@@ -1,6 +1,6 @@
 html, body {
   height: 100%;
-  font-family: 'Open Sans', sans-serif
+  font-family: 'Courier New', Courier, monospace
 }
 
 body {
@@ -8,6 +8,23 @@ body {
   align-items: center;
   justify-content: flex-center;
   flex-direction: column;
+}
+
+.difficulty {
+  display: flex;
+  justify-content: center;
+  width: 500px;
+}
+
+button {
+  padding: 10px;
+  border-radius: 10%;
+  font: inherit;
+  color: #ffffff;
+  background-color: #2D95BF;
+  margin: 15px;
+  cursor: pointer;
+  font-size: 1.2rem;
 }
 
 #message, #notes {
@@ -26,7 +43,7 @@ body {
 }
 
 .board div {
-  color: green;
+  color: #2D95BF;
   font-size: 2rem;
   width: 75px;
   height: 75px;
@@ -44,7 +61,7 @@ body {
 }
 
 div.mine, div.mine:hover {
-  background: no-repeat center/60% url("images/bomb.svg") crimson;
+  background: no-repeat center/60% url("images/bomb.svg") #955BA5;
 }
 
 div.hidden {
@@ -56,5 +73,5 @@ div.hidden:hover {
 }
 
 div.marked, div.marked:hover {
-  background: no-repeat center/60% url("images/mark.svg") deepskyblue;
+  background: no-repeat center/60% url("images/mark.svg") #F0C419;
 }
