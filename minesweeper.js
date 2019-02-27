@@ -7,6 +7,9 @@ difficultyButtons.addEventListener('click', function (event) {
   startGame();
 });
 
+var resetButton = document.querySelector('.reset');
+resetButton.addEventListener('click', startGame);
+
 function checkDifficulty(difficulty) {
   switch (difficulty) {
     case 'easy':
