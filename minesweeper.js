@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
+
+
 var difficultyButtons = document.querySelector('.difficulty');
 difficultyButtons.addEventListener('click', function (event) {
   var buttonClicked = event.target;
@@ -90,7 +92,8 @@ function checkForWin() {
       return;
     }
   }
-
+  var audioWin = document.querySelector(".audioWin");
+  audioWin.play();
   // You can use this function call to declare a winner (once you've
   // detected that they've won, that is!)
   lib.displayMessage('You win!')
