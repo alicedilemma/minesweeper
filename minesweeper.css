@@ -13,7 +13,6 @@ body {
 .difficulty {
   display: flex;
   justify-content: center;
-  width: 500px;
 }
 
 button {
@@ -25,6 +24,10 @@ button {
   margin: 15px;
   cursor: pointer;
   font-size: 1.2rem;
+}
+
+button:hover {
+  background-color: #0b749e;
 }
 
 #message, #notes {
