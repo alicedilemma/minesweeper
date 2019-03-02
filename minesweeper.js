@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', startGame)
 
-//initialise board size
+//initialise difficulty
 var difficulty = 'medium';
 
-//buttons to change board size
+//buttons to change difficulty
 var difficultyButtons = document.querySelector('.difficulty');
 difficultyButtons.addEventListener('click', function (event) {
   var buttonClicked = event.target;
@@ -15,7 +15,7 @@ difficultyButtons.addEventListener('click', function (event) {
 var resetButton = document.querySelector('.reset');
 resetButton.addEventListener('click', startGame);
 
-function checkDifficulty(difficulty) {
+function checkDifficulty() {
   switch (difficulty) {
     case 'easy':
       //console.log('easy');
@@ -33,31 +33,42 @@ function checkDifficulty(difficulty) {
 }
 
 function setupBoard() {
-  //create empty cells array
+  //create board with empty cells array
   var board = {
     cells: []
   };
-  //create cellls - note that the board is always square so rows = cols
+  //create cells - note that the board is always square so rows = cols
   for (var i = 0; i < rows; i++) {
     for (var j = 0; j < rows; j++) {
-      board.cells.push({ row: i + 1, col: j + 1 });
+      board.cells.push(
+        {
+          row: i + 1,
+          col: j + 1,
+          hidden: true,
+          isMarked: false,
+          isMine: false
+        }
+      );
     }
   }
-  board.cells.forEach(function (cell) {
-    cell.hidden = true;
-    cell.isMarked = false;
-    if (Math.random() >= 0.8) {
-      cell.isMine = true;
-    } else {
-      cell.isMine = false;
+  //distribute mines
+  var totalCells = rows * rows;
+  var mines = Math.round(0.2 * totalCells);
+  var minesPlaced = 0;
+  while (minesPlaced < mines) {
+    //find a random cell
+    var randomCell = Math.floor(Math.random() * totalCells);
+    if (board.cells[randomCell].isMine === false) {
+      board.cells[randomCell].isMine = true;
+      minesPlaced++;
     }
-  });
+  }
   //console.log(board.cells);
   return board;
 }
 
 function startGame() {
-  checkDifficulty(difficulty);
+  checkDifficulty();
   board = setupBoard();
 
   document.addEventListener('click', checkForWin);
@@ -79,7 +90,7 @@ function checkForWin() {
     //check that all mines are marked
     if (cell.isMine && !cell.isMarked) {
       return;
-    //check that all non-mines are no longer hidden
+      //check that all non-mines are no longer hidden
     } else if (!cell.isMine && cell.hidden) {
       return;
     }
