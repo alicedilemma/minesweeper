@@ -53,7 +53,7 @@ function setupBoard() {
   }
   //distribute mines
   var totalCells = rows * rows;
-  var mines = Math.round(0.2 * totalCells);
+  var mines = Math.round(0.15 * totalCells);
   var minesPlaced = 0;
   while (minesPlaced < mines) {
     //find a random cell
