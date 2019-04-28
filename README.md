@@ -1,3 +1,5 @@
+https://alicedilemma.github.io/minesweeper/
+
 # Minesweeper
 
 This challenge has you create a clone of the desktop game Minesweeper:
